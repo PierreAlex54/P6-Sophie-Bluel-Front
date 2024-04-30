@@ -70,7 +70,6 @@ async function createCategories() {
   });
   await activFilters();
 }
-createCategories();
 
 async function activFilters() {
   const buttons = document.querySelectorAll(".filterBtn");
@@ -90,4 +89,53 @@ async function activFilters() {
       });
     });
   });
+}
+
+const tokenOn = localStorage.getItem("token");
+console.log(tokenOn);
+
+if (tokenOn) {
+  const login = document.querySelector(".login");
+  const logout = document.querySelector(".logout");
+  login.style.display = "none";
+  logout.style.display = "block";
+  editModBar();
+  editModGallery();
+
+  logout.addEventListener("click", function () {
+    localStorage.removeItem("token");
+    login.style.display = "block";
+    logout.style.display = "none";
+  });
+} else {
+  createCategories();
+}
+
+function editModBar() {
+  const body = document.querySelector("body");
+  const divTop = document.createElement("div");
+  const icon = document.createElement("i");
+  const text = document.createElement("p");
+  icon.className = "fa-regular fa-pen-to-square";
+  text.innerText = "Mode édition";
+  divTop.appendChild(icon);
+  divTop.appendChild(text);
+  divTop.classList.add("topBar");
+  body.insertAdjacentElement("afterbegin", divTop);
+}
+
+function editModGallery() {
+  const h2 = document.querySelector("#portfolio h2");
+  const divAdminGallery = document.createElement("div");
+  const newh2 = document.createElement("h2");
+  const icon = document.createElement("i");
+  const text = document.createElement("p");
+  newh2.innerText = "Mes Projets";
+  icon.className = "fa-regular fa-pen-to-square";
+  text.innerText = "modifier";
+  divAdminGallery.appendChild(newh2);
+  divAdminGallery.appendChild(icon);
+  divAdminGallery.appendChild(text);
+  divAdminGallery.classList.add("divAdminGallery");
+  h2.parentNode.replaceChild(divAdminGallery, h2);
 }
