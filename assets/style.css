@@ -129,7 +129,7 @@ table {
 }
 /** end reset css**/
 body {
-  max-width: 1140px;
+  max-width: 1440px;
   margin: auto;
   font-family: "Work Sans";
   font-size: 14px;
@@ -137,7 +137,12 @@ body {
 header {
   display: flex;
   justify-content: space-between;
-  margin: 50px 0;
+  margin: auto;
+  max-width: 1140px;
+}
+main {
+  max-width: 1140px;
+  margin: auto;
 }
 section {
   margin: 50px 0;
@@ -239,7 +244,6 @@ ul a:hover {
 }
 
 #contact input {
-  height: 50px;
   font-size: 1.2em;
   border: none;
   box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
@@ -252,6 +256,11 @@ ul a:hover {
   box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
 
+input#email,
+input#name {
+  height: 51px;
+}
+
 input[type="submit"] {
   font-family: "Syne";
   font-weight: 700;
@@ -261,6 +270,8 @@ input[type="submit"] {
   width: 180px;
   text-align: center;
   border-radius: 60px;
+  border: none;
+  height: 36px;
 }
 
 /* Log in form */
@@ -325,7 +336,7 @@ footer nav ul {
   padding: 10px;
   text-align: center;
   border-radius: 60px;
-  border-color: #1d6154;
+  border: none;
 }
 
 .filterSelected {
@@ -369,4 +380,198 @@ footer nav ul {
 .divAdminGallery i,
 .divAdminGallery p {
   cursor: pointer;
+}
+
+/* Modale */
+
+.modal {
+  position: fixed;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 1440px;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.modal-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 630px;
+  height: 680px;
+  background-color: white;
+  border-radius: 10px;
+}
+
+.modal-wrapper .fa-xmark {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+}
+
+.modal-wrapper h3 {
+  font-family: "Work Sans";
+  font-weight: 400;
+  font-size: 26px;
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+/* Modal pic gall */
+
+.mainModal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 75%;
+}
+
+.modalGallery {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+}
+
+.modalGallery img {
+  height: 100%;
+  width: 100%;
+}
+
+.modalGallery figure {
+  position: relative;
+}
+
+.modalGallery i {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: black;
+  color: white;
+  padding: 4px;
+}
+
+.modal-wrapper hr {
+  border-style: solid;
+  border-width: 1px;
+  color: #b3b3b3;
+  width: 100%;
+  margin-top: 50px;
+}
+
+.modal-wrapper input {
+  cursor: pointer;
+}
+
+.modal-wrapper .fa-trash-can {
+  cursor: pointer;
+}
+
+/* Modal pic add */
+
+.modal-wrapper .fa-arrow-left {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  cursor: pointer;
+}
+
+.picAdd {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #e8f1f6;
+  padding: 20px;
+  height: 169px;
+}
+
+.picAdd i {
+  font-size: 76px;
+  color: #b9c5cc;
+}
+
+.picAdd label {
+  font-family: "Syne";
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #306685;
+  background-color: #cbd6dc;
+  width: 173px;
+  height: 36px;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+}
+
+.picAdd p {
+  font-family: "Work Sans";
+  font-size: 400;
+  text-decoration: #444444;
+}
+
+.picAdd img {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  object-fit: cover;
+  z-index: 100;
+}
+
+/* .picAdd::before {
+  position: absolute;
+  content: attr(data-img);
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  font-weight: 500;
+  font-size: large;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 101;
+  opacity: 0;
+  transition: all 0.3s ease;
+} */
+
+/* .picAdd.active:hover::before {
+  opacity: 1;
+} */
+
+.picAddForm {
+  width: 100%;
+}
+
+.picAddForm form {
+  display: flex;
+  flex-direction: column;
+}
+
+.picAddForm label {
+  margin: 2em 0 1em 0;
+}
+
+input#title,
+select#picCatSelect {
+  height: 51px;
+  font-size: 1.2em;
+  border: none;
+  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+input[class="disabledBtn"] {
+  background-color: #a7a7a7;
+  color: white;
 }

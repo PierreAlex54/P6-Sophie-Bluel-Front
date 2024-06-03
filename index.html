@@ -19,6 +19,69 @@
     <script src="./script.js" defer></script>
   </head>
   <body>
+    <!-- Création de la modale -->
+    <aside
+      id="modal1"
+      class="modal"
+      aria-hidden="true"
+      aria-labelledby="titleModal"
+      style="display: none"
+    >
+      <div id="picGallery" class="modal-wrapper modalStopProp">
+        <i class="fa-solid fa-xmark closeModal"></i>
+        <div class="mainModal">
+          <h3 id="titleModal">Galerie photo</h3>
+          <div class="modalGallery"></div>
+          <hr />
+          <input type="submit" value="Ajouter une photo" />
+        </div>
+      </div>
+
+      <div
+        id="picsAdd"
+        class="modal-wrapper modalStopProp"
+        style="display: none"
+      >
+        <i class="fa-solid fa-arrow-left"></i>
+        <i class="fa-solid fa-xmark closeModal1"></i>
+        <div class="mainModal">
+          <h3 id="titleModal">Ajout photo</h3>
+          <div class="picAddForm">
+            <form action="#" method="post" enctype="multipart/form-data">
+              <!-- penser à enlever data-img si hover ne marche pas-->
+              <div class="picAdd" data-img="hello.png">
+                <i class="fa-regular fa-image"></i>
+                <label for="fileInput" class="customFileButton" id="picAddBtn"
+                  >+ Ajouter photo</label
+                >
+                <input
+                  type="file"
+                  name="image"
+                  accept="image/jpeg, image/png"
+                  id="fileIn"
+                  hidden
+                />
+                />
+                <p>jpg, png : 4mo max</p>
+              </div>
+              <label for="title">Titre</label>
+              <input type="text" name="title" id="title" />
+              <label for="categorySelect">Catégorie</label>
+              <select name="categories" id="picCatSelect"></select>
+              <hr />
+              <input
+                type="submit"
+                value="Valider"
+                id="addFormBtn"
+                class="disabledBtn"
+                disabled
+              />
+            </form>
+          </div>
+        </div>
+      </div>
+    </aside>
+
     <header>
       <h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
       <nav>
