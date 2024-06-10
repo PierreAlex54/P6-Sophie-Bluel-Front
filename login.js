@@ -14,8 +14,6 @@ logForm.addEventListener("submit", async function (event) {
     body: JSON.stringify({ email, password }),
   });
 
-  console.log(response);
-
   if (response.status === 404) {
     alert("L'utilisateur n'est pas reconnu");
   }

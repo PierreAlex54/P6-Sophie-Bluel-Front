@@ -32,13 +32,12 @@ async function createGallery() {
   });
 }
 createGallery();
-
 // récupération catégories API
 
 async function getCategories() {
   const response = await fetch("http://localhost:5678/api/categories");
   const categories = await response.json();
-  console.log(categories);
+
   return categories;
 }
 
@@ -52,11 +51,10 @@ async function createCategories() {
 
   const btnTous = document.createElement("button");
   btnTous.innerText = "Tous";
-  btnTous.className = "filterBtn";
+  btnTous.className = "filterBtn active";
   filters.appendChild(btnTous);
 
   btnTous.dataset.btnId = 0;
-  console.log(btnTous.id);
 
   const categories = await getCategories();
   categories.forEach((element) => {
@@ -66,15 +64,27 @@ async function createCategories() {
     filters.appendChild(filtersBtn);
 
     filtersBtn.dataset.btnId = element.id;
-    console.log(filtersBtn.dataset.btnId);
   });
   await activFilters();
+}
+
+// Fonction pour retirer la classe active de tous les boutons
+function removeActiveClass() {
+  const buttons = document.querySelectorAll(".filterBtn");
+  buttons.forEach((button) => {
+    button.classList.remove("active");
+  });
 }
 
 async function activFilters() {
   const buttons = document.querySelectorAll(".filterBtn");
   buttons.forEach((button) => {
     button.addEventListener("click", async (event) => {
+      // Retirer la classe active de tous les boutons
+      removeActiveClass();
+
+      // Ajouter la classe active au bouton cliqué
+      event.target.classList.add("active");
       // récupération de l'ID du bouton cliqué
       const btnId = event.target.dataset.btnId;
       console.log(event.target.dataset.btnId);
@@ -92,8 +102,6 @@ async function activFilters() {
 }
 
 const tokenOn = localStorage.getItem("token");
-console.log(tokenOn);
-
 if (tokenOn) {
   const login = document.querySelector(".login");
   const logout = document.querySelector(".logout");
@@ -142,8 +150,6 @@ function editModGallery() {
   text.classList.add("openModal");
   h2.parentNode.replaceChild(divAdminGallery, h2);
 }
-
-// affichage galerie modale
 
 // affichage galerie modale
 async function createModalGallery() {
@@ -264,23 +270,14 @@ picsAdd.addEventListener("click", stopPropagation);
 
 // gestion du formulaire d'ajout de photos
 
-// Déclencher le clic de l'élément d'entrée de fichier lorsqu'un utilisateur clique sur le bouton stylisé
-const fileBtn = document.querySelector(".customFileButton");
-const addFile = document.querySelector("#fileIn");
+const addFile = document.querySelector("#fileInput");
 
-fileBtn.addEventListener("click", function () {
-  addFile.click();
-  console.log("Bouton cliqué");
-});
 // prévisu de l'image ajoutée
 addFile.addEventListener("change", function () {
   const image = this.files[0];
-  console.log(image);
   if (image.size <= 4000000) {
     const reader = new FileReader();
     reader.onload = () => {
-      // const allImg = picAdd.querySelectorAll("img");
-      // allImg.forEach((item) => item.remove());
       const imgUrl = reader.result;
       const img = document.createElement("img");
       const picAdd = document.querySelector(".picAdd");
@@ -298,7 +295,7 @@ addFile.addEventListener("change", function () {
 // gestion des catégories dans le menu déroulant de la modale
 
 async function modalCategories() {
-  const picCatSelect = document.getElementById("picCatSelect");
+  const picCatSelect = document.getElementById("categorySelect");
 
   const categories = await getCategories();
 
@@ -313,9 +310,9 @@ modalCategories();
 
 // Gestion validation du formulaire
 
-const fileInput = document.getElementById("fileIn");
+const fileInput = document.getElementById("fileInput");
 const titleInput = document.getElementById("title");
-const categorySelect = document.getElementById("picCatSelect");
+const categorySelect = document.getElementById("categorySelect");
 const submitBtn = document.getElementById("addFormBtn");
 
 fileInput.addEventListener("change", onChange);
@@ -352,7 +349,7 @@ picAddSubmit.addEventListener("submit", async function (event) {
     },
     body: formData,
   });
-  console.log(response);
+
   if (response.ok) {
     alert("Travail envoyé avec succès !");
     // Ajouter le nouveau travail à la galerie
@@ -360,7 +357,6 @@ picAddSubmit.addEventListener("submit", async function (event) {
     await createGallery();
     await createModalGallery();
     removePrevImg();
-    // addWorkToGallery(newWork);
   } else if (response.status === 400) {
     alert("Erreur : Demande incorrecte !");
   } else if (response.status === 401) {
@@ -379,40 +375,3 @@ function removePrevImg() {
   const hideBtn = document.querySelector("#picAddBtn");
   hideBtn.style.display = "flex";
 }
-
-// Ajouter un travail à la galerie principale et à la galerie modale
-// function addWorkToGallery(work) {
-//   const mainGallery = document.querySelector("#portfolio .gallery");
-//   const modalGallery = document.querySelector(".modal .modalGallery");
-
-//   const workFigureMain = document.createElement("figure");
-//   const workFigureModal = document.createElement("figure");
-
-//   const workImgMain = document.createElement("img");
-//   const workImgModal = document.createElement("img");
-
-//   const workCaptionMain = document.createElement("figcaption");
-//   const workCaptionModal = document.createElement("figcaption");
-
-//   workFigureMain.dataset.workId = work.categoryId;
-//   workFigureModal.dataset.workId = work.categoryId;
-
-//   workImgMain.src = work.imageUrl;
-//   workImgModal.src = work.imageUrl;
-
-//   workImgMain.alt = work.title;
-//   workImgModal.alt = work.title;
-
-//   workCaptionMain.innerText = work.title;
-//   workCaptionModal.innerText = work.title;
-
-// Ajouter le travail à la galerie principale
-// mainGallery.appendChild(workFigureMain);
-// workFigureMain.appendChild(workImgMain);
-// workFigureMain.appendChild(workCaptionMain);
-
-// Ajouter le travail à la galerie modale
-//   modalGallery.appendChild(workFigureModal);
-//   workFigureModal.appendChild(workImgModal);
-//   workFigureModal.appendChild(workCaptionModal);
-// }

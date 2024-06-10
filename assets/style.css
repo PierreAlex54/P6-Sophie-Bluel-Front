@@ -137,12 +137,14 @@ body {
 header {
   display: flex;
   justify-content: space-between;
-  margin: auto;
+  margin-inline: auto;
+  margin-top: 50px;
   max-width: 1140px;
 }
 main {
   max-width: 1140px;
   margin: auto;
+  width: 80%;
 }
 section {
   margin: 50px 0;
@@ -197,7 +199,7 @@ ul a:hover {
 }
 #introduction img {
   display: block;
-  margin: auto;
+
   width: 80%;
 }
 
@@ -276,6 +278,20 @@ input[type="submit"] {
 
 /* Log in form */
 
+#logBody {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+#logHeader {
+  width: 100%;
+}
+
+#logMain {
+  width: 100%;
+}
+
 #loginBold {
   font-weight: bold;
 }
@@ -297,10 +313,8 @@ input[type="submit"] {
 }
 
 #login input {
-  height: 50px;
+  height: 36px;
   font-size: 1.2em;
-  border: none;
-  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
 
 #login label {
@@ -336,7 +350,14 @@ footer nav ul {
   padding: 10px;
   text-align: center;
   border-radius: 60px;
-  border: none;
+  border-color: #1d6154;
+  border-style: solid;
+  cursor: pointer;
+}
+
+.filterBtn.active {
+  color: white;
+  background-color: #1d6154;
 }
 
 .filterSelected {
@@ -528,28 +549,6 @@ footer nav ul {
   z-index: 100;
 }
 
-/* .picAdd::before {
-  position: absolute;
-  content: attr(data-img);
-  top: 0;
-  height: 100%;
-  width: 100%;
-  background: rgba(0, 0, 0, 0.3);
-  font-weight: 500;
-  font-size: large;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 101;
-  opacity: 0;
-  transition: all 0.3s ease;
-} */
-
-/* .picAdd.active:hover::before {
-  opacity: 1;
-} */
-
 .picAddForm {
   width: 100%;
 }
@@ -564,7 +563,9 @@ footer nav ul {
 }
 
 input#title,
-select#picCatSelect {
+select#categorySelect,
+input#email,
+input#password {
   height: 51px;
   font-size: 1.2em;
   border: none;
