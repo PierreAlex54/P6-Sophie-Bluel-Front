@@ -3,7 +3,6 @@
 async function getWorks() {
   const response = await fetch("http://localhost:5678/api/works");
   const works = await response.json();
-  //   console.log(works);
   return works;
 }
 
@@ -87,7 +86,7 @@ async function activFilters() {
       event.target.classList.add("active");
       // récupération de l'ID du bouton cliqué
       const btnId = event.target.dataset.btnId;
-      console.log(event.target.dataset.btnId);
+
       const figures = document.querySelectorAll("#portfolio .gallery figure");
 
       figures.forEach((figure) => {
@@ -178,33 +177,6 @@ async function createModalGallery() {
 }
 createModalGallery();
 
-function deleteWorks() {
-  const trashIcons = document.querySelectorAll(".fa-trash-can");
-  trashIcons.forEach((trashIcon) => {
-    trashIcon.addEventListener("click", async function () {
-      console.log(trashIcons);
-      const confirmDelete = confirm(
-        "Êtes-vous sûr de vouloir supprimer cette image ?"
-      );
-      if (confirmDelete) {
-        const workFigure = trashIcon.parentElement;
-        const workId = workFigure.dataset.workId;
-        // Envoi de la requête DELETE au serveur pour supprimer l'image de la base de données
-        await fetch(`http://localhost:5678/api/works/${workId}`, {
-          method: "DELETE",
-          headers: {
-            Authorization: `Bearer ${tokenOn}`,
-            "Content-Type": "application/json",
-          },
-        });
-        // Suppression de l'image du DOM
-        await createGallery();
-        await createModalGallery();
-      }
-    });
-  });
-}
-
 // Gestion ouverture/fermeture fenêtre modale
 
 let modal = null;
@@ -268,6 +240,33 @@ backButton.addEventListener("click", function () {
 picGallery.addEventListener("click", stopPropagation);
 picsAdd.addEventListener("click", stopPropagation);
 
+// Fonction de suppression des images de la modale et dans l'API
+function deleteWorks() {
+  const trashIcons = document.querySelectorAll(".fa-trash-can");
+  trashIcons.forEach((trashIcon) => {
+    trashIcon.addEventListener("click", async function () {
+      const confirmDelete = confirm(
+        "Êtes-vous sûr de vouloir supprimer cette image ?"
+      );
+      if (confirmDelete) {
+        const workFigure = trashIcon.parentElement;
+        const workId = workFigure.dataset.workId;
+        // Envoi de la requête DELETE au serveur pour supprimer l'image de la base de données
+        await fetch(`http://localhost:5678/api/works/${workId}`, {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${tokenOn}`,
+            "Content-Type": "application/json",
+          },
+        });
+        // Suppression de l'image du DOM
+        await createGallery();
+        await createModalGallery();
+      }
+    });
+  });
+}
+
 // gestion du formulaire d'ajout de photos
 
 const addFile = document.querySelector("#fileInput");
@@ -288,7 +287,7 @@ addFile.addEventListener("change", function () {
     };
     reader.readAsDataURL(image);
   } else {
-    alert("Veuillez choisir une image de 4mb maxi");
+    alert("Veuillez choisir une image de 4mo maxi");
   }
 });
 
@@ -352,8 +351,8 @@ picAddSubmit.addEventListener("submit", async function (event) {
 
   if (response.ok) {
     alert("Travail envoyé avec succès !");
-    // Ajouter le nouveau travail à la galerie
 
+    // Ajouter le nouveau travail à la galerie
     await createGallery();
     await createModalGallery();
     removePrevImg();
