@@ -100,6 +100,7 @@ async function activFilters() {
   });
 }
 
+// Récup token et affichage page principale
 const tokenOn = localStorage.getItem("token");
 if (tokenOn) {
   const login = document.querySelector(".login");
